@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Protfolio</title>
+	<style>
+		.main{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="main" id="loading">
+		LOADING >>>>
+	</div>
+
+	<div class="main" id="content" hidden>
+		<img 
+		id="profileImage" 
+		height="100"
+		width="100">
+			
+		<h1 id="fullName"></h1>
+		<p id="bio"></p>
+		<h5 id="followerInfo"></h5>
+		<p>
+			check me on a <a id="gitLink">GitHub</a>
+		</p>
+		<p>
+			My Projects <a id="repoLink">Projects</a>
+		</p>
+		
+	</div>
+
+	<script>
+		fetch("https://api.github.com/users/UtsavGole")
+		.then(response => response.json())
+		.then(function(data){
+			console.log(data)
+
+			let followerCount=data['followers']
+			let follower='I have been followed by ${followerCount} awesome people'
+
+			document.getElementById('profileImage').src=data['avatar_url']
+			document.getElementById('fullName').textContent=data['name']
+			document.getElementById('fullName').textContent=data['bio']
+			document.getElementById('followerInfo').textContent=follower
+			document.getElementById('gitLink').href=data['html_url']
+
+			document.getElementById('repoLink').href=data['html_url']
+
+			document.getElementById('content').hidden=false
+
+			document.getElementById('loading').hidden=true
+
+
+			
+
+		})
+	</script>
+
+
+</body>
+</html>
